@@ -26,11 +26,9 @@ jobs:
           echo "BUILD_VERSION (Job): $BUILD_VERSION"
           echo "STEP_TEMP (Step): ${STEP_TEMP:-NAO_ENCONTRADO}" # Verifique o que acontece aqui
 
-      - name: "Passo 3: Auditoria com Variaveis Padrao"
-        run: |
-          # TODO: Complete esta secao usando variaveis de ambiente padrao do GitHub Actions
-          # Exemplo: echo "Repositorio: $GITHUB_REPOSITORY"
-          echo "O usuario [NOME_DO_USUARIO] disparou este workflow no repositorio [NOME_DO_REPO]. O sistema operacional do runner e [SISTEMA_OPERACIONAL]."
+      - - name: Passo 3: Auditoria com Variáveis Padrão
+  run: |
+    echo "O usuário $GITHUB_ACTOR disparou este workflow no repositório $GITHUB_REPOSITORY. O sistema operacional do runner é $RUNNER_OS."
 
       - name: "Passo 4: Gerar Codigo Dinamico"
         id: gerar_codigo
