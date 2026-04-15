@@ -1,20 +1,23 @@
 name: Desafio de Variaveis e Escopos
-on: workflow_dispatch
+
+on:
+  workflow_dispatch:
 
 env:
-  APP_NAME: "MeuAppIncrível" # 1. Variavel de escopo global
+  APP_NAME: "MeuAppIncrível" # Variável global
 
 jobs:
   build_app:
     name: Build da Aplicacao
     runs-on: ubuntu-latest
-    env:
-      BUILD_VERSION: "v1.0.0" # 2. Variavel de escopo de job
 
-steps:
+    env:
+      BUILD_VERSION: "v1.0.0" # Variável de job
+
+    steps:
       - name: "Passo 1: Variaveis em Escopos Diferentes"
         env:
-          STEP_TEMP: "Processando..." # 3. Variavel de escopo de step
+          STEP_TEMP: "Processando..."
         run: |
           echo "APP_NAME (Global): $APP_NAME"
           echo "BUILD_VERSION (Job): $BUILD_VERSION"
@@ -24,28 +27,28 @@ steps:
         run: |
           echo "APP_NAME (Global): $APP_NAME"
           echo "BUILD_VERSION (Job): $BUILD_VERSION"
-          echo "STEP_TEMP (Step): ${STEP_TEMP:-NAO_ENCONTRADO}" # Verifique o que acontece aqui
+          echo "STEP_TEMP (Step): ${STEP_TEMP:-NAO_ENCONTRADO}"
 
-       - name: Passo 3: Auditoria com Variáveis Padrão
-  run: |
-    echo "O usuário $GITHUB_ACTOR disparou este workflow no repositório $GITHUB_REPOSITORY. O sistema operacional do runner é $RUNNER_OS."
+      - name: Passo 3: Auditoria com Variáveis Padrão
+        run: |
+          echo "O usuário $GITHUB_ACTOR disparou este workflow no repositório $GITHUB_REPOSITORY. O sistema operacional do runner é $RUNNER_OS."
 
-       - name: Passo 4: Gerar Código Dinâmico
-  run: |
-    RANDOM_NUM=$RANDOM
-    echo "BUILD_HASH=$RANDOM_NUM" >> $GITHUB_ENV
+      - name: Passo 4: Gerar Código Dinâmico
+        run: |
+          RANDOM_NUM=$RANDOM
+          echo "BUILD_HASH=$RANDOM_NUM" >> $GITHUB_ENV
 
-       - name: Passo 5: Usar Código Dinâmico
-  run: |
-    echo "O hash gerado para este build foi: $BUILD_HASH"
+      - name: Passo 5: Usar Código Dinâmico
+        run: |
+          echo "O hash gerado para este build foi: $BUILD_HASH"
 
   deploy_app:
     name: Deploy da Aplicacao
     runs-on: ubuntu-latest
-    needs: build_app # Este job depende do job 'build_app'
+    needs: build_app
 
     steps:
-       - name: Passo 6: Acessando Secrets e Vars
-  run: |
-    echo "URL do ambiente: ${{ vars.URL_AMBIENTE }}"
-    echo "Token da API: ${{ secrets.API_TOKEN_PROD }}"
+      - name: Passo 6: Acessando Secrets e Vars
+        run: |
+          echo "URL do ambiente: ${{ vars.URL_AMBIENTE }}"
+          echo "Token da API: ${{ secrets.API_TOKEN_PROD }}"
