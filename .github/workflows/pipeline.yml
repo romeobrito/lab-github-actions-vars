@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  APP_NAME: "MeuAppIncrível"
+  APP_NAME: "MeuAppIncrivel"
 
 jobs:
   build_app:
@@ -15,30 +15,30 @@ jobs:
       BUILD_VERSION: "v1.0.0"
 
     steps:
-      - name: "Passo 1: Variaveis em Escopos Diferentes"
+      - name: Passo 1 Variaveis em Escopos Diferentes
         env:
-          STEP_TEMP: "Processando..."
+          STEP_TEMP: "Processando"
         run: |
           echo "APP_NAME (Global): $APP_NAME"
           echo "BUILD_VERSION (Job): $BUILD_VERSION"
           echo "STEP_TEMP (Step): $STEP_TEMP"
 
-      - name: "Passo 2: Observando o Escopo da STEP_TEMP"
+      - name: Passo 2 Observando Escopo da STEP_TEMP
         run: |
           echo "APP_NAME (Global): $APP_NAME"
           echo "BUILD_VERSION (Job): $BUILD_VERSION"
           echo "STEP_TEMP (Step): ${STEP_TEMP:-NAO_ENCONTRADO}"
 
-      - name: "Passo 3: Auditoria com Variáveis Padrão"
+      - name: Passo 3 Auditoria Variaveis Padrao
         run: |
-          echo "O usuário $GITHUB_ACTOR disparou este workflow no repositório $GITHUB_REPOSITORY. O sistema operacional do runner é $RUNNER_OS."
+          echo "O usuario $GITHUB_ACTOR disparou este workflow no repositorio $GITHUB_REPOSITORY. O sistema operacional do runner e $RUNNER_OS."
 
-      - name: "Passo 4: Gerar Código Dinâmico"
+      - name: Passo 4 Gerar Codigo Dinamico
         run: |
           RANDOM_NUM=$RANDOM
           echo "BUILD_HASH=$RANDOM_NUM" >> $GITHUB_ENV
 
-      - name: "Passo 5: Usar Código Dinâmico"
+      - name: Passo 5 Usar Codigo Dinamico
         run: |
           echo "O hash gerado para este build foi: $BUILD_HASH"
 
@@ -48,7 +48,7 @@ jobs:
     needs: build_app
 
     steps:
-      - name: "Passo 6: Acessando Secrets e Vars"
+      - name: Passo 6 Acessando Secrets e Vars
         run: |
           echo "URL do ambiente: ${{ vars.URL_AMBIENTE }}"
           echo "Token da API: ${{ secrets.API_TOKEN_PROD }}"
